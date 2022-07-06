@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--
+    Mybatis核心配置文件中，标签的顺序
+    The content of element type "configuration" must match
+    "(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+    objectWrapperFactory?,reflectorFactory?,plugins?,environments?,
+    databaseIdProvider?,mappers?)".
+    -->
+
+    <!--引入配置文件-->
+    <properties resource="jdbc.properties"></properties>
+
+    <!--typeAliases：设置某个类型的别名
+        属性:
+            type: 设置需要设置别名的类型
+            alias： 设置某个类型的别名
+            若设置了alias，则别名为设置的，则默认为类名，但不区分大小写
+    -->
+    <typeAliases>
+        <!--若是不设置alias，则默认为类名，但不区分大小写-->
+        <typeAlias type="com.itguigu.mybatis.pojo.User" alias="User"></typeAlias>
+
+        <!--
+            package:
+                以包为单位，将包下所有的类型设置默认的类型别名，即类名且不区分大小写
+        -->
+        <package name="com.itguigu.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--设置连接数据库的环境-->
+    <environments default="development">
+        <!--在这可以配置多个连接数据库环境
+            default设置默认使用环境的id-->
+        <environment id="development">
+            <!--
+                transactionManager: 设置事务管理方式
+                属性：
+                    type="JDBC|MANAGED"
+                    JDBC:表示当前环境中，执行sql时，使用的时JDBC中原生的事务管理方式（事务提交或回滚需要手动处理）
+                    MANAGED: 表示被管理，例如spring
+             -->
+
+            <transactionManager type="JDBC"/><!--设置事务管理类型-->
+            <!--所有的事务提交和回滚都需要手动处理-->
+            <!--
+                dataSource：配置数据源
+                属性：
+                    type： 设置数据源的类型
+                    type="POOLED|UNPOOLED|JDID"
+                    POOLED: 表示使用数据库连接池缓存数据库连接
+                    UNPOOLED： 表示不适用数据库连池
+                    JDID： 表示使用上下文中的数据源
+            -->
+            <!--设置连接数据库的驱动-->
+            <dataSource type="POOLED">
+
+                <!--需要引入properties文件才能使用（上面已经已经）-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--引入映射文件-->
+    <mappers>
+        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+        <!--以包为单位引入映射文件
+            要求：
+                1. mapper接口所在的包要和映射文件所在的包一致
+                2. mapper接口要和映射文件的名字一致
+
+            注意事项：
+                在创建包时不能使用.一次性创建，因为在此处是文件，而不是类
+                一次性创建需要使用/来分割
+        -->
+        <package name="com.itguigu.mybatis.mapper"/><!--在此处是resources文件下的mapper包-->
+    </mappers>
+</configuration>

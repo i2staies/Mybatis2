@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口全类名-->
+<mapper namespace="com.itguigu.mybatis.mapper.ParameterMapper">
+
+    <!--List<User> getAllUser();-->
+    <select id="getAllUser" resultType="User">
+        select * from t_user
+    </select>
+
+    <!--User getUserByName(String name);-->
+    <select id="getUserByName" resultType="User">
+        select * from t_user where username = #{name}
+    </select>
+
+    <!--User checkUserPwd(String name,String password);-->
+    <select id="checkUserPwd" resultType="User">
+        select * from t_user where username = #{param1} and password = #{param2}
+    </select>
+
+    <!--User checkUserPwdMap(Map<String,Object> map);-->
+    <select id="checkUserPwdMap" resultType="User">
+        <!--可以直接通过键获取值-->
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+    <!--int insertUser(User user);-->
+    <select id="insertUser">
+        insert into t_user values(null,#{username},#{password},#{age},'男','1111@qq.com')
+    </select>
+
+    <!--User checkUserPwdByParam(@Param("username")String name,@Param("password")String pwd);-->
+    <select id="checkUserPwdByParam" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+</mapper>
