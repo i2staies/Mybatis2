@@ -1,6 +1,5 @@
-package com.itguigu.mybatis.test;
+package com.itguigu.mybatis.mapper;
 
-import com.itguigu.mybatis.mapper.ParameterMapper;
 import com.itguigu.mybatis.pojo.User;
 import com.itguigu.mybatis.utils.SqlSessionUtils;
 import org.apache.ibatis.session.SqlSession;

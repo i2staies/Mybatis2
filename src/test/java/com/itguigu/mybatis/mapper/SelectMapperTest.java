@@ -1,11 +1,8 @@
-package com.itguigu.mybatis.test;
+package com.itguigu.mybatis.mapper;
 
-import com.itguigu.mybatis.mapper.SelectMapper;
 import com.itguigu.mybatis.utils.SqlSessionUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-
-import java.sql.Connection;
 
 public class SelectMapperTest {
 
