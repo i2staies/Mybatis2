@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口全类名-->
+<mapper namespace="com.itguigu.mybatis.mapper.SqlMapper">
+
+    <!--List<User> getUserByLike(@Param(value = "username") String username);-->
+    <select id="getUserByLike" resultType="User">
+        <!--
+        select * from t_user where username like '%#{username}%'  报错，因为在''被认为是字符串
+        select * from t_user where username like '%${username}%'  方式一
+        select * from t_user where username like concat('%',#{username},'%')  方式二
+        -->
+        select * from t_user where username like "%"#{username}"%"  <!--方式三-->
+    </select>
+
+    <!--int deleteUserByIds(@Param(value = "ids")String ids);-->
+    <delete id="deleteUserByIds">
+        delete from t_user where id in(${ids})
+    </delete>
+
+    <!--List<User> getUserByTableName(@Param(value = "tablename") String tablename);-->
+    <select id="getUserByTableName" resultType="User">
+        <!--select * from #{table}   错误示范，表明不能加单引号-->
+        select * from ${tablename}
+    </select>
+</mapper>
